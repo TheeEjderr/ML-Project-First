@@ -33,12 +33,12 @@ def root():
 
 @app.post("/predict")
 def predict(data: SleepInput):
-    features = np.array([[
-        data.age,
-        data.sleep,
-        data.activity,
-        data.male
-    ]])
+    X = pd.DataFrame([{
+        "age": data.age,
+        "sleep": data.sleep,
+        "activity": data.activity,
+        "male": data.male
+    }])
 
     prediction = model.predict(features)
 
