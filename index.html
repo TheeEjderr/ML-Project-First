@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep & Stress</title>
+</head>
+<body>
+    <h3 id="Sleep"></h3>
+    <h3 id="Stress"></h3>
+
+    <input type="number" id="age">
+    <input type="number" id="sleep">
+    <input type="number" id="activity">
+    <input type="checkbox" id="male"/>
+    <button onclick="Send_value()"></button>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+    data_set = [];
+    Sleep_ = document.getElementById("Sleep");
+    Stress_ = document.getElementById("Stress");
+    age = document.getElementById("age");
+    sleep = document.getElementById("sleep");
+    activity = document.getElementById("activity");
+    Male = document.getElementById("male");
+
+
+    socket.on("stress" , (stress) => {
+        Stress_.innerHTML = "Stress : " + stress;
+    });
+    socket.on("sleep" , (sleep) => {
+        Sleep_.innerHTML = "Sleep Quality : " + sleep;
+    });
+
+
+    function Send_value()
+    {
+        socket.emit("age", age.value);
+        socket.emit("sleep", sleep.value);
+        socket.emit("activity", activity.value);
+        socket.emit("male", male.value);
+    }
+
+
+    
+    
+
+
+    
+</script>
+</html>
