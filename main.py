@@ -1,0 +1,47 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import numpy as np
+import joblib
+
+
+app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+model = joblib.load("model.joblib")
+
+
+class SleepInput(BaseModel):
+    age: float
+    sleep: float
+    activity: float
+    male: int 
+
+
+@app.get("/")
+def root():
+    return {"status": "API is running"}
+
+
+@app.post("/predict")
+def predict(data: SleepInput):
+    features = np.array([[
+        data.age,
+        data.sleep,
+        data.activity,
+        data.male
+    ]])
+
+    prediction = model.predict(features)
+
+    return {
+        "prediction": float(prediction[0])
+    }
