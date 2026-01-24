@@ -43,5 +43,6 @@ def predict(data: SleepInput):
     prediction = model.predict(features)
 
     return {
-        "prediction": float(prediction[0])
+        "prediction_1": float(prediction[0][0]),
+        "prediction_2": float(prediction[0][1])
     }
