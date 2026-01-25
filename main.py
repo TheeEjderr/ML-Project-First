@@ -35,10 +35,10 @@ def root():
 @app.post("/predict")
 def predict(data: SleepInput):
     X = pd.DataFrame([{
-        "age": data.age,
-        "sleep": data.sleep,
-        "activity": data.activity,
-        "male": data.male
+        "Age": data.age,
+        "Gender_Male": data.male,
+        "Physical Activity Level": data.activity,
+        "Sleep Duration": data.sleep
     }])
 
     prediction = model.predict(X)
