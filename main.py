@@ -4,7 +4,7 @@ from pydantic import BaseModel
 import numpy as np
 import joblib
 import pandas as pd
-
+import numpy as np
 
 app = FastAPI()
 
@@ -34,12 +34,7 @@ def root():
 
 @app.post("/predict")
 def predict(data: SleepInput):
-    X = pd.DataFrame([{
-        "Age": data.age,
-        "Gender_Male": data.male,
-        "Physical Activity Level": data.activity,
-        "Sleep Duration": data.sleep
-    }])
+    X = np.array([data.age, data.sleep, data.activity, data.male])
 
     prediction = model.predict(X)
 
