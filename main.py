@@ -34,7 +34,7 @@ def root():
 
 @app.post("/predict")
 def predict(data: SleepInput):
-    X = np.array([data.age, data.sleep, data.activity, data.male])
+    X = np.array([[data.age, data.sleep, data.activity, data.male]], dtype=float)
 
     prediction = model.predict(X)
 
